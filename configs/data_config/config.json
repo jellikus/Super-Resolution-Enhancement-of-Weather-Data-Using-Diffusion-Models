@@ -1,0 +1,16 @@
+{
+  "name": "data_config",
+  "datetime_format": "%Y-%m-%d-%H",
+  "temporal_resolution": {
+    "unit": "h",
+    "value": 1
+  },
+
+  "directory_name_meta_data": "meta",
+  "file_name_meta_data": "metadata",
+  "file_name_constant_data": "constant",
+  "directory_name_sample_data": "samples",
+  "netcdf_extension": ".nc",
+  "numpy_extension": ".npy"
+
+}

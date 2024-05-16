@@ -1,0 +1,50 @@
+{
+    "name": "pretrain_simplesr_base",
+    "gpu_id": [0],
+    "phase": "val",
+    "path": {
+        "log": "logs",
+        "results": "results",
+        "checkpoint": "checkpoint",
+        "resume_state": "pretrained_models/pretrained_cnn_epoch_199.pth",
+        "validation_results_path": "/home/jellik/Datasets/validation"
+    },
+    "data": {
+        "name": "WeatherBench",
+        "dataroot": "/home/jellik/Datasets/temperature_data_numpy_all",
+        "batch_size": 128,
+        "val_batch_size": 128,
+        "num_workers": 24,
+        "use_shuffle": true,
+        "train_min_date": "1979-01-01-00",
+        "train_max_date": "2016-01-01-00",
+        "train_subset_min_date": "2014-01-01-00",
+        "train_subset_max_date": "2016-01-01-00",
+        "transformation": "GlobalStandardScaling",
+        "months_subset": [1],
+        "transform_groups": {"january": [1]},
+        "val_min_date": "2016-01-01-00",
+        "val_max_date": "2017-01-01-00",
+        "variables": ["t2m"],
+        "height": 128
+    },
+    "model": {
+        "name": "SimpleSR",
+        "in_channel": 1,
+        "out_channel": 1
+    },
+    "train": {
+        "epoch": 200,
+        "optimizer": {
+            "type": "adam",
+            "amsgrad": false,
+            "lr": 1e-4
+        },
+        "save_checkpoint_freq_epoch": 1
+    },
+    "wandb": {
+        "project": "Climate-Variables-SR",
+        "entity": "jellik_pc"
+    },
+    "save_images": 15
+}

@@ -1,0 +1,100 @@
+{
+  "name": "resdiff_eval",
+  "phase": "val", // train or val
+  "gpu_ids": [0],
+  "path": {
+    "log": "logs",
+    "tb_logger": "tb_logger",
+    "results": "results",
+    "checkpoint": "checkpoint",
+    "resume_state": "/home/jellik/School/VyLet/PAPER/resdiff/model_save/save/I170000_E25"
+  },
+  "data": {
+    "name": "WeatherBench",
+    "dataroot": "/home/jellik/Datasets/temperature_data_numpy_all",
+    "batch_size": 4,
+    "val_batch_size": 16,
+    "num_workers": 24,
+    "use_shuffle": true,
+    "train_min_date": "1979-01-01-00",
+    "train_max_date": "2016-01-01-00",
+    "train_subset_min_date": "2014-01-01-00",
+    "train_subset_max_date": "2016-01-01-00",
+    "transformation": "GlobalStandardScaling",
+    "months_subset": [1],
+    "transform_groups": {"january": [1]},
+    "val_min_date": "2016-01-01-00",
+    "val_max_date": "2017-01-01-00",
+    "variables": ["t2m"],
+    "height": 128
+  },
+  "model": {
+    "model_name": "diffusion",
+    "architecture": "resdiff", // use the resdiff or sr3 network structure
+    "finetune_norm": false,
+    "unet": {
+      "in_channel": 5, // 5 + n_filters
+      "out_channel": 1, // 1* channels
+      "inner_channel": 64,
+      "channel_multiplier": [
+        1,
+        2,
+        4,
+        8,
+        8
+      ],
+      "attn_res": [
+        16
+      ],
+      "res_blocks": 2,
+      "dropout": 0.2
+    },
+    "beta_schedule": { // use munual beta_schedule for acceleration
+      "train": {
+        "schedule": "linear",
+        "n_timestep": 1000,
+        "linear_start": 1e-6,
+        "linear_end": 1e-2
+      },
+      "val": {
+        "schedule": "linear",
+        "n_timestep": 1000,
+        "linear_start": 1e-6,
+        "linear_end": 1e-2
+      }
+    },
+    "diffusion": {
+      "image_height": 128,
+      "image_width": 256,
+      "image_channels": 1,
+      "channels": 1, //sample channel
+      "conditional": true // unconditional generation or unconditional generation(super_resolution)
+    },
+    "pretrained_model": {
+      "model_path": "/home/jellik/School/VyLet/Climate-Variables-Downscaling/pretrained_models/curr_pretrained_28.pth", // base_rrdb
+      "lock_weights": true
+    }
+  },
+  "train": {
+    "save_visualizations": true,
+    "n_iter": 1,
+    "val_freq": 1,
+    "full_val_freq": 200001,
+    "save_checkpoint_freq": 1,
+    "print_freq": 1,
+    "val_vis_freq": 1,
+    "optimizer": {
+      "type": "adam", // cant be changed
+      "lr": 1e-4
+    },
+    "ema_scheduler": { // not used now
+      "step_start_ema": 5000,
+      "update_ema_every": 1,
+      "ema_decay": 0.9999
+    }
+  },
+  "wandb": {
+    "project": "Climate-Variables-SR",
+    "entity": "jellik_pc"
+  }
+}

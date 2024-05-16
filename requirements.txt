@@ -1,0 +1,14 @@
+Cartopy
+intervaltree==3.1.0
+lmdb==1.4.1
+matplotlib==3.7.1
+numpy==1.25.0
+python_dateutil
+pytorch_wavelets==1.3.0
+scipy==1.13.0
+scikit-image==0.19.3
+tensorboardX
+torch==2.0.1
+torcheval_nightly==2023.10.5
+tqdm
+xarray

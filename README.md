@@ -1,7 +1,7 @@
 # Super-Resolution Enhancement of Weather Data Using Diffusion Models
 
 ---
-This repository contains implementaiton of batchelor thesis focused on super-resolution enhancement of weather data using diffusion models. This work is based on [[1](https://github.com/LYL1015/ResDiff#resdiff-combining-cnn-and-diffusion-model-for-image-super-resolution), [2](https://github.com/davitpapikyan/Probabilistic-Downscaling-of-Climate-Variables/tree/main?tab=readme-ov-file)]
+This repository contains implementaiton of [paper](https://arxiv.org/abs/2406.04099) focused on super-resolution enhancement of weather data using diffusion models. This work is based on [[1](https://github.com/LYL1015/ResDiff#resdiff-combining-cnn-and-diffusion-model-for-image-super-resolution), [2](https://github.com/davitpapikyan/Probabilistic-Downscaling-of-Climate-Variables/tree/main?tab=readme-ov-file)]
 ## 📖 Table of Contents
 
 ---
